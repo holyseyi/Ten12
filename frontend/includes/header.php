@@ -31,17 +31,17 @@ define('BASE_PATH', __DIR__ . '/..');
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <a href="/frontend/index.php" class="logo-link">
+                <a href="index.php" class="logo-link">
                     <img src="assets/images/logo.png" alt="Ten12" class="logo-image logo-light" />
                     <img src="assets/images/primaryLogo.png" alt="Ten12" class="logo-image logo-dark" />
                 </a>
             </div>
             <ul class="nav-menu">
-                <li><a href="/frontend/index.php" class="nav-link <?php echo $current_page === 'home' ? 'active' : ''; ?>">Home</a></li>
-                <li><a href="/frontend/projects.php" class="nav-link <?php echo $current_page === 'projects' ? 'active' : ''; ?>">Projects</a></li>
-                <li><a href="/frontend/about.php" class="nav-link <?php echo $current_page === 'about' ? 'active' : ''; ?>">About</a></li>
-                <li><a href="/frontend/contact.php" class="nav-link <?php echo $current_page === 'contact' ? 'active' : ''; ?>">Contact</a></li>
-                <li><a href="/admin/login.php" class="nav-link">Admin</a></li>
+                <li><a href="index.php" class="nav-link <?php echo $current_page === 'home' ? 'active' : ''; ?>">Home</a></li>
+                <li><a href="projects.php" class="nav-link <?php echo $current_page === 'projects' ? 'active' : ''; ?>">Projects</a></li>
+                <li><a href="about.php" class="nav-link <?php echo $current_page === 'about' ? 'active' : ''; ?>">About</a></li>
+                <li><a href="contact.php" class="nav-link <?php echo $current_page === 'contact' ? 'active' : ''; ?>">Contact</a></li>
+                <li><a href="../admin/login.php" class="nav-link">Admin</a></li>
             </ul>
             <div class="theme-toggle">
                 <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle dark mode">

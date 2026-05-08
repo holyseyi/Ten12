@@ -8,10 +8,10 @@
                     <p>Modern. Memorable. Ten12.</p>
                 </div>
                 <div class="footer-links">
-                    <a href="/frontend/index.php">Home</a>
-                    <a href="/frontend/projects.php">Projects</a>
-                    <a href="/frontend/about.php">About</a>
-                    <a href="/frontend/contact.php">Contact</a>
+                    <a href="index.php">Home</a>
+                    <a href="projects.php">Projects</a>
+                    <a href="about.php">About</a>
+                    <a href="contact.php">Contact</a>
                 </div>
                 <div class="footer-social">
                     <a href="#" class="social-link" aria-label="GitHub">

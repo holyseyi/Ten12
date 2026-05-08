@@ -24,6 +24,8 @@
     --background-secondary: #f9fafb;
     --background-tertiary: #f3f4f6;
     --border-color: #e5e7eb;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -46,6 +48,8 @@
     --background-secondary: #1f2937;
     --background-tertiary: #374151;
     --border-color: #4b5563;
+    --bg-primary: #111827;
+    --bg-secondary: #1f2937;
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
@@ -133,21 +137,20 @@ body {
 }
 
 .nav-menu {
-    display: none;
+    display: flex;
     list-style: none;
     margin: 0;
     padding: 0;
     gap: 2rem;
     align-items: center;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: var(--background);
-    flex-direction: column;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    min-width: 200px;
-    z-index: 1000;
+    position: static;
+    top: auto;
+    right: auto;
+    background: transparent;
+    flex-direction: row;
+    box-shadow: none;
+    min-width: auto;
+    z-index: auto;
 }
 
 .nav-menu.active {
@@ -246,7 +249,7 @@ body {
 }
 
 .nav-toggle {
-    display: flex;
+    display: none;
     flex-direction: column;
     cursor: pointer;
     gap: 0.25rem;
@@ -445,7 +448,7 @@ body {
 }
 
 .project-card {
-    background: white;
+    background: var(--background);
     border-radius: var(--radius-xl);
     overflow: hidden;
     box-shadow: var(--shadow-md);
@@ -620,7 +623,7 @@ body {
 .stat {
     text-align: center;
     padding: 2rem 1rem;
-    background: white;
+    background: var(--background);
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-md);
 }
@@ -650,7 +653,7 @@ body {
 }
 
 .contact-form {
-    background: white;
+    background: var(--background);
     padding: 2rem;
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-md);
@@ -855,6 +858,7 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-menu {
+        display: none;
         position: fixed;
         top: 4rem;
         left: 0;
@@ -873,6 +877,7 @@ body {
         transform: translateY(0);
         opacity: 1;
         visibility: visible;
+        display: flex;
     }
 
     .nav-toggle {
@@ -1218,7 +1223,7 @@ html {
 
 .project-info-card,
 .project-links-card {
-    background: white;
+    background: var(--background);
     padding: 2rem;
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-md);
@@ -1730,7 +1735,7 @@ html {
         left: -100%;
         top: 70px;
         flex-direction: column;
-        background-color: white;
+        background-color: var(--background);
         width: 100%;
         text-align: center;
         transition: 0.3s;

@@ -74,7 +74,7 @@ require_once 'includes/header.php';
                                 }
                             }
                             
-                            echo '<div class="project-card" onclick="window.location.href=\'/frontend/project-detail.php?id=' . $id . '\'">';
+                            echo '<div class="project-card" onclick="window.location.href=\'project-detail.php?id=' . $id . '\'">';
                             echo '<div class="project-thumbnail">';
                             if(!empty($thumbnail)) {
                                 echo '<img src="../backend/' . htmlspecialchars($thumbnail) . '" alt="' . htmlspecialchars($title) . '" loading="lazy">';
