@@ -279,7 +279,7 @@ require_once __DIR__ . '/../backend/models/User.php';
             }
         }
         
-        async function deleteUser(id) {
+async function deleteUser(id) {
             if (!confirm('Are you sure you want to delete this user?')) {
                 return;
             }
