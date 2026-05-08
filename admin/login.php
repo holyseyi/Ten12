@@ -13,6 +13,36 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
     header('Location: dashboard.php');
     exit();
 }
+
+// Handle form submission
+$error = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require_once __DIR__ . '/../backend/config/database.php';
+    require_once __DIR__ . '/../backend/models/User.php';
+    
+    $database = new Database();
+    $db = $database->getConnection();
+    
+    if ($db) {
+        $user = new User($db);
+        $auth_user = $user->verifyPassword($_POST['username'], $_POST['password']);
+        
+        if ($auth_user) {
+            $_SESSION['admin_logged_in'] = true;
+            $_SESSION['admin_id'] = $auth_user['id'];
+            $_SESSION['admin_username'] = $auth_user['username'];
+            $_SESSION['admin_email'] = $auth_user['email'];
+            $_SESSION['admin_role'] = $auth_user['role'];
+            
+            header('Location: dashboard.php');
+            exit();
+        } else {
+            $error = 'Invalid credentials';
+        }
+    } else {
+        $error = 'Database connection failed';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,10 +94,14 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
                 </nav>
             </div>
             
-            <form id="loginForm" class="login-form">
+            <?php if ($error): ?>
+            <div class="login-message error" style="display: block;"><?php echo htmlspecialchars($error); ?></div>
+            <?php endif; ?>
+            
+            <form method="POST" class="login-form">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required placeholder="Enter your username">
+                    <input type="text" id="username" name="username" required placeholder="Enter your username" value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>">
                 </div>
                 
                 <div class="form-group">
@@ -77,8 +111,6 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
                 
                 <button type="submit" class="btn btn-primary">Sign In</button>
             </form>
-            
-            <div id="loginMessage" class="login-message"></div>
         </div>
     </div>
     
