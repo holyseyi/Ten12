@@ -19,30 +19,17 @@ class Database {
                 $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
                 error_log("Connected via DATABASE_URL");
             } else {
-                // Fallback to SQLite for local development or serverless
-                $this->db_file = __DIR__ . '/../../database.sqlite';
-                $db_dir = dirname($this->db_file);
-
-                // Check if directory is writable (for serverless environments)
-                $use_in_memory = false;
-                if (is_dir($db_dir) && is_writable($db_dir)) {
-                    error_log("Attempting SQLite at: " . $this->db_file);
-                    $dsn = "sqlite:" . $this->db_file;
-                } else {
-                    error_log("Directory not writable, using in-memory SQLite");
-                    $dsn = "sqlite::memory:";
-                    $use_in_memory = true;
-                }
+                // Always use in-memory SQLite for serverless environments like Wasmer
+                error_log("Using in-memory SQLite for serverless deployment");
+                $dsn = "sqlite::memory:";
 
                 $this->conn = new PDO($dsn);
                 $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-                error_log("SQLite connection successful");
+                error_log("SQLite in-memory connection successful");
 
-                // Initialize database if it doesn't exist (or always for in-memory)
-                if ($use_in_memory || !file_exists($this->db_file)) {
-                    $this->initializeDatabase();
-                }
+                // Always initialize database for in-memory
+                $this->initializeDatabase();
             }
         } catch(PDOException $exception) {
             error_log("Database connection error: " . $exception->getMessage());

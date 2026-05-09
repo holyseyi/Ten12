@@ -14,6 +14,12 @@ ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/../../error.log');
 error_log("Auth request received: " . $_SERVER['REQUEST_METHOD']);
 
+// Handle OPTIONS preflight
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
 $request_method = $_SERVER['REQUEST_METHOD'];
 
 // Get database connection
