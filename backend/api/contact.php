@@ -4,8 +4,8 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-require_once '../config/database.php';
-require_once '../models/Contact.php';
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../models/Contact.php';
 
 $database = new Database();
 $db = $database->getConnection();

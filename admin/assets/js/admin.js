@@ -88,7 +88,7 @@ async function handleLogin(e) {
     submitButton.innerHTML = '<span class="spinner"></span> Signing in...';
     
     try {
-        const response = await fetch('../backend/api/admin/auth.php', {
+        const response = await fetch('../../backend/api/admin/auth.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -167,8 +167,8 @@ function initEventListeners() {
 
 async function loadDashboardStats() {
     try {
-        const response = await fetch('/backend/api/projects.php?admin=1');
-        
+        const response = await fetch('../../backend/api/projects.php?admin=1');
+
         if (response.ok) {
             const data = await response.json();
             updateDashboardStats(data);
@@ -199,10 +199,10 @@ function updateStatCard(id, value) {
 async function loadRecentProjects() {
     const container = document.getElementById('recentProjects');
     if (!container) return;
-    
+
     try {
-        const response = await fetch('/backend/api/projects.php?admin=1&limit=5');
-        
+        const response = await fetch('../../backend/api/projects.php?admin=1&limit=5');
+
         if (response.ok) {
             const data = await response.json();
             if (data.records && data.records.length > 0) {
@@ -267,7 +267,7 @@ async function handleProjectSubmit(e) {
             published: formData.get('published') === '1'
         };
         
-        const response = await fetch(`../backend/api/projects.php${isEdit ? `?id=${projectId}` : ''}`, {
+        const response = await fetch(`../../backend/api/projects.php${isEdit ? `?id=${projectId}` : ''}`, {
             method: isEdit ? 'PUT' : 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -311,7 +311,7 @@ async function handleProjectDelete(e) {
     }
     
     try {
-        const response = await fetch(`../backend/api/projects.php?id=${projectId}`, {
+        const response = await fetch(`../../backend/api/projects.php?id=${projectId}`, {
             method: 'DELETE'
         });
 
@@ -340,7 +340,7 @@ async function handleImageUpload(e) {
     formData.append('image', file);
     
     try {
-        const response = await fetch('../backend/api/upload.php', {
+        const response = await fetch('../../backend/api/upload.php', {
             method: 'POST',
             body: formData
         });
