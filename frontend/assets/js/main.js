@@ -4,6 +4,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
 
+    // Mobile navigation toggle
+    navToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        navToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
     // Initialize theme toggle
     initThemeToggle();
     
@@ -17,20 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (link.getAttribute('href').slice(1) === currentPath) {
             link.classList.add('active');
         }
-    });
-
-    // Mobile navigation toggle
-    navToggle.addEventListener('click', function() {
-        navToggle.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
-
-    // Close mobile menu when clicking on a link
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            navToggle.classList.remove('active');
-            navMenu.classList.remove('active');
-        });
     });
 
     // Active navigation link based on scroll position
@@ -72,15 +66,11 @@ function initThemeToggle() {
 
 // Hamburger Menu Functionality
 function initHamburgerMenu() {
-    const navToggle = document.getElementById('navToggle');
+    const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
-    
+    const navLinks = document.querySelectorAll('.nav-link');
+
     if (navToggle && navMenu) {
-        navToggle.addEventListener('click', function() {
-            navToggle.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-        
         // Close menu when clicking outside
         document.addEventListener('click', function(e) {
             if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
@@ -88,9 +78,8 @@ function initHamburgerMenu() {
                 navMenu.classList.remove('active');
             }
         });
-        
+
         // Close menu when clicking on a link
-        const navLinks = navMenu.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
             link.addEventListener('click', function() {
                 navToggle.classList.remove('active');
