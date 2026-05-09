@@ -9,6 +9,11 @@ session_start();
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../models/User.php';
 
+// Enable error logging
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/../../error.log');
+error_log("Auth request received: " . $_SERVER['REQUEST_METHOD']);
+
 $request_method = $_SERVER['REQUEST_METHOD'];
 
 // Get database connection
