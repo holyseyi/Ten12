@@ -34,7 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['admin_email'] = $auth_user['email'];
             $_SESSION['admin_role'] = $auth_user['role'];
             
-            header('Location: dashboard.php');
+            // Redirect based on role
+            $redirect = $_SESSION['admin_role'] === 'admin' ? 'dashboard.php' : 'dashboard.php';
+            header('Location: ' . $redirect);
             exit();
         } else {
             $error = 'Invalid credentials';

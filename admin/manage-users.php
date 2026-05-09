@@ -246,7 +246,7 @@ require_once __DIR__ . '/../backend/models/User.php';
                 const result = await response.json();
                 
                 if (response.ok) {
-                    showAdminMessage(result.message, 'success');
+                    showAdminMessage(result.message || 'User saved successfully.', 'success');
                     closeUserModal();
                     loadUsers();
                 } else {

@@ -131,11 +131,18 @@ switch($request_method) {
         $id = isset($_GET['id']) ? $_GET['id'] : null;
         
         if ($id && $data) {
-            $result = $user->update($id, [
+            $updateData = [
                 'username' => $data->username ?? '',
                 'email' => $data->email ?? '',
                 'role' => $data->role ?? 'user'
-            ]);
+            ];
+            
+            $result = $user->update($id, $updateData);
+            
+            // Update password if provided
+            if (!empty($data->password)) {
+                $user->updatePassword($id, $data->password);
+            }
             
             if ($result) {
                 echo json_encode(array("success" => true, "message" => "User updated successfully."));
