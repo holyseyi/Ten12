@@ -38,18 +38,25 @@ function initThemeToggle() {
 function initHamburgerMenu() {
     const adminToggle = document.getElementById('adminToggle');
     const adminNavMenu = document.getElementById('adminNavMenu');
-    
+    const adminSidebar = document.querySelector('.admin-sidebar');
+
     if (adminToggle && adminNavMenu) {
         adminToggle.addEventListener('click', function() {
             adminToggle.classList.toggle('active');
             adminNavMenu.classList.toggle('active');
+            if (adminSidebar) {
+                adminSidebar.classList.toggle('open');
+            }
         });
-        
+
         // Close menu when clicking outside
         document.addEventListener('click', function(e) {
             if (!adminToggle.contains(e.target) && !adminNavMenu.contains(e.target)) {
                 adminToggle.classList.remove('active');
                 adminNavMenu.classList.remove('active');
+                if (adminSidebar) {
+                    adminSidebar.classList.remove('open');
+                }
             }
         });
     }
@@ -57,7 +64,7 @@ function initHamburgerMenu() {
 
 // Login Page Functionality
 function initLoginPage() {
-    const loginForm = document.getElementById('loginForm');
+    const loginForm = document.getElementById('loginForm') || document.querySelector('.login-form');
     const messageDiv = document.getElementById('loginMessage');
     
     if (loginForm) {
@@ -81,11 +88,12 @@ async function handleLogin(e) {
     submitButton.innerHTML = '<span class="spinner"></span> Signing in...';
     
     try {
-        const response = await fetch('/backend/api/admin/auth.php', {
+        const response = await fetch('../backend/api/admin/auth.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: 'same-origin',
             body: JSON.stringify({
                 username: formData.get('username'),
                 password: formData.get('password')
@@ -101,12 +109,17 @@ async function handleLogin(e) {
             setTimeout(() => {
                 window.location.href = 'dashboard.php';
             }, 1000);
-        } else {
+        } else if (response.status === 401 || response.status === 400) {
             showMessage(result.message || 'Login failed. Please try again.', 'error');
+        } else {
+            // If AJAX login cannot complete, fallback to server-side form submit
+            form.removeEventListener('submit', handleLogin);
+            form.submit();
         }
     } catch (error) {
         console.error('Login error:', error);
-        showMessage('Login failed. Please try again.', 'error');
+        form.removeEventListener('submit', handleLogin);
+        form.submit();
     } finally {
         submitButton.disabled = false;
         submitButton.textContent = 'Sign In';

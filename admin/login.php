@@ -96,11 +96,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </nav>
             </div>
             
+            <div id="loginMessage" class="login-message"></div>
             <?php if ($error): ?>
             <div class="login-message error" style="display: block;"><?php echo htmlspecialchars($error); ?></div>
             <?php endif; ?>
             
-            <form method="POST" class="login-form">
+            <form id="loginForm" action="login.php" method="POST" class="login-form">
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" required placeholder="Enter your username" value="<?php echo isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>">

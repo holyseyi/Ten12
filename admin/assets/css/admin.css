@@ -809,12 +809,7 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
     .admin-sidebar {
-        transform: translateX(-100%);
         transition: transform 0.3s ease;
-    }
-
-    .admin-sidebar.open {
-        transform: translateX(0);
     }
 
     .admin-main {
@@ -1081,7 +1076,8 @@ body {
         margin-top: 1rem;
     }
     
-    .admin-nav-menu.active {
+    .admin-nav-menu.active,
+    .admin-sidebar.open .admin-nav-menu {
         display: block;
     }
     
