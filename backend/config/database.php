@@ -14,10 +14,20 @@ class Database {
 
             if ($database_url) {
                 // Use PostgreSQL/MySQL from environment variable
-                $this->conn = new PDO($database_url);
-                $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-                error_log("Connected via DATABASE_URL");
+                try {
+                    $this->conn = new PDO($database_url);
+                    $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+                    error_log("Connected via DATABASE_URL");
+                    
+                    // Test connection with simple query
+                    $this->conn->query("SELECT 1");
+                    error_log("DATABASE_URL connection test: SUCCESS");
+                } catch (PDOException $e) {
+                    error_log("DATABASE_URL connection failed: " . $e->getMessage());
+                    error_log("DATABASE_URL provided: " . substr($database_url, 0, strpos($database_url, '@') + 1) . "***");
+                    return null;
+                }
             } else {
                 // Always use in-memory SQLite for serverless environments like Wasmer
                 error_log("Using in-memory SQLite for serverless deployment");
