@@ -1,0 +1,7 @@
+[10-May-2026 21:30:48 UTC] Login attempt for user: admin
+[10-May-2026 21:30:48 UTC] DATABASE_URL from env: NOT SET
+[10-May-2026 21:30:48 UTC] Using in-memory SQLite for serverless deployment
+[10-May-2026 21:30:48 UTC] SQLite in-memory connection successful
+[10-May-2026 21:30:48 UTC] Database connected successfully
+[10-May-2026 21:30:48 UTC] Attempting to verify password for: admin
+[10-May-2026 21:30:48 UTC] Login successful for user: admin

@@ -25,10 +25,33 @@ class User {
     }
 
     public function findByUsername($username) {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE username = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute([$username]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        try {
+            $query = "SELECT * FROM " . $this->table_name . " WHERE username = ?";
+            error_log("findByUsername: Executing query for user: $username");
+            
+            $stmt = $this->conn->prepare($query);
+            if (!$stmt) {
+                error_log("findByUsername: Failed to prepare statement: " . print_r($this->conn->errorInfo(), true));
+                return false;
+            }
+            
+            $result = $stmt->execute([$username]);
+            if (!$result) {
+                error_log("findByUsername: Query execution failed: " . print_r($stmt->errorInfo(), true));
+                return false;
+            }
+            
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($user) {
+                error_log("findByUsername: User found - ID: " . $user['id']);
+            } else {
+                error_log("findByUsername: No user found with username: $username");
+            }
+            return $user;
+        } catch (Exception $e) {
+            error_log("findByUsername: Exception occurred: " . $e->getMessage());
+            return false;
+        }
     }
 
     public function findById($id) {
@@ -39,11 +62,37 @@ class User {
     }
 
     public function verifyPassword($username, $password) {
-        $user = $this->findByUsername($username);
-        if ($user && password_verify($password, $user['password'])) {
-            return $user;
+        try {
+            error_log("verifyPassword: Looking up user: $username");
+            
+            $user = $this->findByUsername($username);
+            
+            if (!$user) {
+                error_log("verifyPassword: User not found in database: $username");
+                return false;
+            }
+            
+            error_log("verifyPassword: User found, verifying password");
+            
+            if (!isset($user['password'])) {
+                error_log("verifyPassword: ERROR - User record has no password field!");
+                return false;
+            }
+            
+            $password_match = password_verify($password, $user['password']);
+            
+            if ($password_match) {
+                error_log("verifyPassword: SUCCESS - Password verified for user: $username");
+                return $user;
+            } else {
+                error_log("verifyPassword: FAILED - Password does not match for user: $username");
+                error_log("verifyPassword: Hash from DB: " . substr($user['password'], 0, 20) . "...");
+                return false;
+            }
+        } catch (Exception $e) {
+            error_log("verifyPassword: Exception occurred: " . $e->getMessage());
+            return false;
         }
-        return false;
     }
 
     public function getAll() {
