@@ -1,0 +1,10 @@
+services:
+  - type: web_service
+    name: ten12-portfolio
+    env: php
+    plan: starter
+    branch: main
+    buildCommand: ""
+    startCommand: php -S 0.0.0.0:$PORT
+    envVars:
+      - key: DATABASE_URL

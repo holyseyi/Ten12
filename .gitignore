@@ -1,0 +1,5 @@
+/data/
+/backend/logs/
+/node_modules/
+/vendor/
+.env

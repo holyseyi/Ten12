@@ -120,6 +120,24 @@ cd frontend
 php -S localhost:8000
 ```
 
+### Render Deployment
+Render can run this PHP app as a Web Service using the provided `render.yaml`.
+
+1. Connect your repository to Render and create a new Web Service.
+2. Use the start command:
+   ```bash
+   php -S 0.0.0.0:$PORT
+   ```
+3. Set the `DATABASE_URL` environment variable in Render to a supported database connection string.
+   - For PostgreSQL: `postgres://user:pass@host:port/dbname`
+   - For MySQL: `mysql://user:pass@host:port/dbname`
+4. If you do not set `DATABASE_URL`, the app will fall back to file-based SQLite at `/data/app.db`.
+   - Note: Render file storage is ephemeral unless you attach a persistent disk.
+
+> On Render, persistent production data should use a managed database and `DATABASE_URL`.
+
+```
+
 ### Step 3: Set Permissions
 
 Ensure the uploads directory is writable:
