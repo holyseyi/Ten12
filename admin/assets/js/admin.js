@@ -18,18 +18,27 @@ document.addEventListener('DOMContentLoaded', function() {
 function initThemeToggle() {
     const themeToggle = document.getElementById('themeToggle');
     const html = document.documentElement;
+    const radioInputs = document.querySelectorAll('.theme-radio-input');
     
     // Get saved theme or default to light
     const savedTheme = localStorage.getItem('theme') || 'light';
     html.setAttribute('data-theme', savedTheme);
     
+    // Set the corresponding radio button as checked
+    radioInputs.forEach(input => {
+        if (input.value === savedTheme) {
+            input.checked = true;
+        }
+    });
+    
     if (themeToggle) {
-        themeToggle.addEventListener('click', function() {
-            const currentTheme = html.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+        radioInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                if (this.checked) {
+                    html.setAttribute('data-theme', this.value);
+                    localStorage.setItem('theme', this.value);
+                }
+            });
         });
     }
 }

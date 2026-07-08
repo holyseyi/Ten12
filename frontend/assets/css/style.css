@@ -193,61 +193,60 @@ body {
     align-items: center;
 }
 
-.theme-toggle-btn {
-    background: var(--background-tertiary);
-    border: 2px solid var(--border-color);
-    cursor: pointer;
-    padding: 0.75rem;
-    border-radius: var(--radius-md);
-    transition: all 0.3s ease;
-    color: var(--text-primary);
-    position: relative;
+.theme-radio-group {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 44px;
-    min-height: 44px;
+    gap: 0.5rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 0.25rem;
+    background: var(--background-tertiary);
     box-shadow: var(--shadow-sm);
 }
 
-.theme-toggle-btn:hover {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
-    color: white;
-    transform: scale(1.05);
+.theme-radio-group legend {
+    display: none;
 }
 
-.sun-icon, .moon-icon {
+.theme-radio-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
     transition: all 0.3s ease;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
 }
 
-[data-theme="dark"] .sun-icon {
-    opacity: 0;
-    transform: rotate(180deg) scale(0);
+.theme-radio-input {
+    display: none;
 }
 
-[data-theme="dark"] .moon-icon {
-    opacity: 1;
-    transform: rotate(0deg) scale(1);
+.theme-radio-input:checked + .theme-radio-text {
+    color: white;
 }
 
-.sun-icon {
-    opacity: 1;
-    transform: rotate(0deg) scale(1);
+.theme-radio-label:has(.theme-radio-input:checked) {
+    background: var(--primary-color);
+    color: white;
 }
 
-[data-theme="light"] .moon-icon {
-    opacity: 0;
-    transform: rotate(-180deg) scale(0);
+.theme-radio-text {
+    transition: color 0.3s ease;
 }
 
-.moon-icon {
-    opacity: 0;
-    transform: rotate(-180deg) scale(0);
+.sr-only {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-180deg) scale(0);
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
 }
 
 .nav-toggle {

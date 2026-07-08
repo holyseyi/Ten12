@@ -5,3 +5,15 @@
 [10-May-2026 21:30:48 UTC] Database connected successfully
 [10-May-2026 21:30:48 UTC] Attempting to verify password for: admin
 [10-May-2026 21:30:48 UTC] Login successful for user: admin
+[08-Jul-2026 16:42:22 UTC] Login attempt for user: admin
+[08-Jul-2026 16:42:22 UTC] DATABASE_URL from env: NOT SET
+[08-Jul-2026 16:42:22 UTC] Using in-memory SQLite for serverless deployment
+[08-Jul-2026 16:42:22 UTC] SQLite in-memory connection successful
+[08-Jul-2026 16:42:22 UTC] Database connected successfully
+[08-Jul-2026 16:42:22 UTC] Attempting to verify password for: admin
+[08-Jul-2026 16:42:22 UTC] verifyPassword: Looking up user: admin
+[08-Jul-2026 16:42:22 UTC] findByUsername: Executing query for user: admin
+[08-Jul-2026 16:42:22 UTC] findByUsername: User found - ID: 1
+[08-Jul-2026 16:42:22 UTC] verifyPassword: User found, verifying password
+[08-Jul-2026 16:42:22 UTC] verifyPassword: SUCCESS - Password verified for user: admin
+[08-Jul-2026 16:42:22 UTC] Login successful for user: admin
