@@ -17,3 +17,27 @@
 [08-Jul-2026 16:42:22 UTC] verifyPassword: User found, verifying password
 [08-Jul-2026 16:42:22 UTC] verifyPassword: SUCCESS - Password verified for user: admin
 [08-Jul-2026 16:42:22 UTC] Login successful for user: admin
+[08-Jul-2026 16:51:52 UTC] Login attempt for user: admin
+[08-Jul-2026 16:51:52 UTC] DATABASE_URL from env: NOT SET
+[08-Jul-2026 16:51:52 UTC] Using in-memory SQLite for serverless deployment
+[08-Jul-2026 16:51:52 UTC] SQLite in-memory connection successful
+[08-Jul-2026 16:51:52 UTC] Database connected successfully
+[08-Jul-2026 16:51:52 UTC] Attempting to verify password for: admin
+[08-Jul-2026 16:51:52 UTC] verifyPassword: Looking up user: admin
+[08-Jul-2026 16:51:52 UTC] findByUsername: Executing query for user: admin
+[08-Jul-2026 16:51:52 UTC] findByUsername: User found - ID: 1
+[08-Jul-2026 16:51:52 UTC] verifyPassword: User found, verifying password
+[08-Jul-2026 16:51:52 UTC] verifyPassword: SUCCESS - Password verified for user: admin
+[08-Jul-2026 16:51:52 UTC] Login successful for user: admin
+[08-Jul-2026 17:25:40 UTC] Login attempt for user: admin
+[08-Jul-2026 17:25:40 UTC] DATABASE_URL from env: NOT SET
+[08-Jul-2026 17:25:40 UTC] Using in-memory SQLite for serverless deployment
+[08-Jul-2026 17:25:40 UTC] SQLite in-memory connection successful
+[08-Jul-2026 17:25:40 UTC] Database connected successfully
+[08-Jul-2026 17:25:40 UTC] Attempting to verify password for: admin
+[08-Jul-2026 17:25:40 UTC] verifyPassword: Looking up user: admin
+[08-Jul-2026 17:25:40 UTC] findByUsername: Executing query for user: admin
+[08-Jul-2026 17:25:40 UTC] findByUsername: User found - ID: 1
+[08-Jul-2026 17:25:40 UTC] verifyPassword: User found, verifying password
+[08-Jul-2026 17:25:40 UTC] verifyPassword: SUCCESS - Password verified for user: admin
+[08-Jul-2026 17:25:40 UTC] Login successful for user: admin

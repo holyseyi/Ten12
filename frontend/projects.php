@@ -60,10 +60,15 @@ require_once 'includes/header.php';
                 if($db) {
                     $project = new Project($db);
                     $stmt = $project->readAll(true); // Only published projects
-                    $num = $stmt->rowCount();
                     
-                    if($num > 0) {
-                        while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    // Fetch all results (rowCount doesn't work for SELECT in SQLite)
+                    $projects = [];
+                    while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $projects[] = $row;
+                    }
+                    
+                    if(count($projects) > 0) {
+                        foreach($projects as $row) {
                             extract($row);
                             $tags_array = explode(',', $tags);
                             $tags_html = '';

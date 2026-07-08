@@ -69,30 +69,28 @@ if ($request_method === 'GET') {
             // Get all projects
             $published_only = !$is_admin;
             $stmt = $project->readAll($published_only);
-            $num = $stmt->rowCount();
             
             $records = array();
-            if ($num > 0) {
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    $images_array = !empty($row['images']) ? json_decode($row['images'], true) : [];
-                    $tags_array = !empty($row['tags']) ? array_map('trim', explode(',', $row['tags'])) : array();
-                    
-                    $records[] = array(
-                        "id" => $row['id'],
-                        "title" => $row['title'],
-                        "description" => $row['description'],
-                        "content" => $row['content'],
-                        "thumbnail" => $row['thumbnail'],
-                        "images" => $images_array,
-                        "category" => $row['category'],
-                        "tags" => $tags_array,
-                        "live_url" => $row['live_url'],
-                        "github_url" => $row['github_url],
-                        "published" => $row['published'],
-                        "created_at" => $row['created_at'],
-                        "updated_at" => $row['updated_at']
-                    );
-                }
+            // Fetch all records
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $images_array = !empty($row['images']) ? json_decode($row['images'], true) : [];
+                $tags_array = !empty($row['tags']) ? array_map('trim', explode(',', $row['tags'])) : array();
+                
+                $records[] = array(
+                    "id" => $row['id'],
+                    "title" => $row['title'],
+                    "description" => $row['description'],
+                    "content" => $row['content'],
+                    "thumbnail" => $row['thumbnail'],
+                    "images" => $images_array,
+                    "category" => $row['category'],
+                    "tags" => $tags_array,
+                    "live_url" => $row['live_url'],
+                    "github_url" => $row['github_url'],
+                    "published" => $row['published'],
+                    "created_at" => $row['created_at'],
+                    "updated_at" => $row['updated_at']
+                );
             }
             
             http_response_code(200);
@@ -106,22 +104,25 @@ if ($request_method === 'GET') {
     exit();
 }
 
-// Require authentication for POST, PUT, DELETE
-if (!in_array($request_method, ['POST', 'PUT', 'DELETE', 'OPTIONS'])) {
-    http_response_code(405);
-    echo json_encode(array("message" => "Method not allowed."));
-    exit();
-}
-
+// Handle OPTIONS preflight
 if ($request_method === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
 
-// Check authentication for admin operations - simplified for now
-if ($is_admin && !isset($_SESSION['admin_logged_in'])) {
-    http_response_code(401);
-    echo json_encode(array("message" => "Unauthorized."));
+// Require authentication for POST, PUT, DELETE
+if (in_array($request_method, ['POST', 'PUT', 'DELETE'])) {
+    if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+        http_response_code(401);
+        echo json_encode(array("message" => "Unauthorized. Please log in as admin."));
+        exit();
+    }
+}
+
+// If request method not supported, error
+if (!in_array($request_method, ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'])) {
+    http_response_code(405);
+    echo json_encode(array("message" => "Method not allowed."));
     exit();
 }
 

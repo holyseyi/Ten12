@@ -4,12 +4,26 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
+session_start();
+
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../utils/auth.php';
 
-// Check authentication
-$auth = new Auth();
-if (!$auth->isAuthenticated()) {
+// Check authentication - support both PHP sessions and JWT tokens
+$is_authenticated = false;
+
+// Check PHP session first
+if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
+    $is_authenticated = true;
+} else {
+    // Fall back to JWT Bearer token
+    $auth = new Auth();
+    if ($auth->isAuthenticated()) {
+        $is_authenticated = true;
+    }
+}
+
+if (!$is_authenticated) {
     http_response_code(401);
     echo json_encode(array("message" => "Unauthorized."));
     exit();

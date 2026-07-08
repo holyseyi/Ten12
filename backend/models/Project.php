@@ -23,10 +23,8 @@ class Project {
 
     public function create() {
         $query = "INSERT INTO " . $this->table_name . "
-                SET title=:title, description=:description, content=:content, 
-                    thumbnail=:thumbnail, images=:images, category=:category, 
-                    tags=:tags, live_url=:live_url, github_url=:github_url, 
-                    published=:published";
+                (title, description, content, thumbnail, images, category, tags, live_url, github_url, published)
+                VALUES (:title, :description, :content, :thumbnail, :images, :category, :tags, :live_url, :github_url, :published)";
 
         $stmt = $this->conn->prepare($query);
 

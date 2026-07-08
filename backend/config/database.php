@@ -29,16 +29,23 @@ class Database {
                     return null;
                 }
             } else {
-                // Always use in-memory SQLite for serverless environments like Wasmer
-                error_log("Using in-memory SQLite for serverless deployment");
-                $dsn = "sqlite::memory:";
+                // Use file-based SQLite for local development
+                // Create data directory if it doesn't exist
+                $db_dir = __DIR__ . '/../../data';
+                if (!is_dir($db_dir)) {
+                    mkdir($db_dir, 0755, true);
+                }
+                
+                $db_file = $db_dir . '/app.db';
+                error_log("Using file-based SQLite at: " . $db_file);
+                $dsn = "sqlite:" . $db_file;
 
                 $this->conn = new PDO($dsn);
                 $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-                error_log("SQLite in-memory connection successful");
+                error_log("SQLite file connection successful");
 
-                // Always initialize database for in-memory
+                // Initialize database if new
                 $this->initializeDatabase();
             }
         } catch(PDOException $exception) {
